@@ -5,11 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.otp_sender.model.DataModel
 import com.example.otp_sender.model.Room.Database
+import com.example.otp_sender.model.Retrofit.RetrofitClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Base64
 
 class Repository {
 
@@ -46,6 +48,22 @@ class Repository {
             dataModel = database!!.DAO().getHistory()
 
             return dataModel
+        }
+
+        fun sendMessage(
+            ACCOUNT_SID: String,
+            AUTH_TOKEN: String,
+            body: String,
+            to: String, 
+            from: String, 
+            context: Context,
+            callback: Callback): TwilioResponse {
+         
+            val twilio: Twilio = Twilio.create(context, ACCOUNT_SID, AUTH_TOKEN)
+            var message: TwilioMessage  = TwilioMessage.create(to, from, body, callback)
+            val response: TwilioResponse = twilio.send(message)
+            
+            return response
         }
 
     }
