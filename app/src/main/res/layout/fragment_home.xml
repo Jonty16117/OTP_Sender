@@ -7,13 +7,9 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <TextView
+    <ListView
+        android:id="@+id/listview_1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Home"
-        android:textColor="#00C853"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

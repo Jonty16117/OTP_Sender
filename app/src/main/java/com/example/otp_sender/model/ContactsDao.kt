@@ -1,20 +1,20 @@
 package com.example.otp_sender.model
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.otp_sender.model.DataModel
 
 @Dao
-interface DAO {
+interface ContactsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun InsertData(dataModel: DataModel)
+    suspend fun insertContact(contact: Contact)
 
-    @Query("SELECT * FROM Contacts_Information")
-    fun getHistory() : LiveData<DataModel>
+    @Query("SELECT * FROM ContactsInformation")
+    fun getHistory() : LiveData<List<Contact>>?
 
+    @Query("DELETE FROM ContactsInformation")
+    fun clear()
 }

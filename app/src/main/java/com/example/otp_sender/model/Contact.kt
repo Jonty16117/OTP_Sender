@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "ContactsInformation")
-data class DataModel(
+data class Contact(
 
         @ColumnInfo(name = "firstName")
         val firstName: String,
@@ -14,10 +14,10 @@ data class DataModel(
         val lastName: String,
 
         @ColumnInfo(name = "contactNo")
-        var contactNo: Int,
+        var contactNo: String,
 
         @ColumnInfo(name = "otp")
-        var otp: Int) {
+        var otp: String) {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
