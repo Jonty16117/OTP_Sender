@@ -3,8 +3,8 @@ package com.example.otp_sender.viewmodel
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.otp_sender.model.Contact
-import com.example.otp_sender.model.ContactsRepository
+import com.example.otp_sender.datastuff.Contact
+import com.example.otp_sender.datastuff.ContactsRepository
 import javax.security.auth.callback.Callback
 import kotlin.random.Random
 

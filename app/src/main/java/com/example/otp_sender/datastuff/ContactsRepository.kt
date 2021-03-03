@@ -1,9 +1,9 @@
-package com.example.otp_sender.model
+package com.example.otp_sender.datastuff
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.RoomDatabase
-import com.example.otp_sender.model.ContactsDatabase.Companion.getDatabaseInstance
+import com.example.otp_sender.datastuff.ContactsDatabase.Companion.getDatabaseInstance
 import com.hihi.twiliosms.Twilio
 import com.hihi.twiliosms.TwilioMessage
 import com.hihi.twiliosms.TwilioResponse

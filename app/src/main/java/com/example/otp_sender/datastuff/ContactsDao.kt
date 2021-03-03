@@ -1,4 +1,4 @@
-package com.example.otp_sender.model
+package com.example.otp_sender.datastuff
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
