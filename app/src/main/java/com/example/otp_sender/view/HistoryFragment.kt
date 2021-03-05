@@ -22,35 +22,41 @@ class HistoryFragment : Fragment() {
             R.layout.fragment_history, container, false
         )
 
-        print("before viewmodel is created")
-        var vmObj = ViewModelProvider(
-            this,ViewModelProvider.NewInstanceFactory())
-            .get(MainViewModel::class.java)
+//        print("before viewmodel is created")
+//        var vmObj = ViewModelProvider(
+//            this,ViewModelProvider.NewInstanceFactory())
+//            .get(MainViewModel::class.java)
 
         val listView: ListView = currentView.findViewById(R.id.history_list)
 
-        println("after viewmodel is created")
-        //creating observer which update the contact list after a new entry is added
-        val contactlistobserver = Observer<List<ContactEntity>> { newlist ->
-
-            val contactList = mutableListOf<Contact>()
-            if(newlist==null)
-                println("newlist is null")
-            for (i in newlist) {
-                contactList.add(
-                    Contact(
-                        i.firstName,
-                        i.lastName,
-                        i.contactNo,
-                        i.otp
-                    )
-                )
-            }
-            listView.adapter = ContactsAdapter(requireContext(), contactList)
-        }
+//        println("after viewmodel is created")
+//        //creating observer which update the contact list after a new entry is added
+//        val contactlistobserver = Observer<List<ContactEntity>> { newlist ->
+//
+//            val contactList = mutableListOf<Contact>()
+//            if(newlist==null)
+//                println("newlist is null")
+//            for (i in newlist) {
+//                contactList.add(
+//                    Contact(
+//                        i.firstName,
+//                        i.lastName,
+//                        i.contactNo,
+//                        i.otp
+//                    )
+//                )
+//            }
+//            listView.adapter = ContactsAdapter(requireContext(), contactList)
+//        }
 
         //adding observer to viewmodel
-        vmObj.getHistory().observe(viewLifecycleOwner, contactlistobserver)
+//        vmObj.getHistory().observe(viewLifecycleOwner, contactlistobserver)
+
+        val contactList = mutableListOf<Contact>()
+        contactList.add(Contact("Manpreet", "Sundi", "987576443", "123456"))
+//
+
+        listView.adapter = HistoryAdapter(requireContext(), contactList)
 
         return currentView
     }

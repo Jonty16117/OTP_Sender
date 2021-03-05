@@ -97,8 +97,8 @@ class HomeFragment : Fragment() {
             // Go to next acitivity
             val intent = Intent(context, ShowContactActivity::class.java).apply {
                 val firstName = allContacts.getJSONObject(position.toString()).getString("firstName")
-                val lastName = allContacts.getJSONObject(position.toString()).getString("firstName")
-                val contactNo = allContacts.getJSONObject(position.toString()).getString("firstName")
+                val lastName = allContacts.getJSONObject(position.toString()).getString("lastName")
+                val contactNo = allContacts.getJSONObject(position.toString()).getString("contactNo")
 
                 putExtra("firstName", firstName)
                 putExtra("lastName", lastName)

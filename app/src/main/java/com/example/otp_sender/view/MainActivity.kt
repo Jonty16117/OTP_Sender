@@ -58,13 +58,13 @@ class MainActivity : AppCompatActivity() {
 
         // returns which item is selected from arraylist of fragments.
         override fun getItem(position: Int): Fragment {
-            return fragmentList1.get(position)
+            return fragmentList1[position]
         }
 
         // returns which item is selected from arraylist of titles.
         @Nullable
         override fun getPageTitle(position: Int): CharSequence {
-            return fragmentTitleList1.get(position)
+            return fragmentTitleList1[position]
         }
 
         // returns the number of items present in arraylist.
