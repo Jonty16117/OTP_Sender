@@ -1,6 +1,7 @@
 package com.example.otp_sender.datastuff
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,10 +11,10 @@ import androidx.room.Query
 interface ContactsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertContact(contact: Contact)
+    fun insertContact(contact: ContactEntity)
 
     @Query("SELECT * FROM ContactsInformation")
-    fun getHistory() : LiveData<List<Contact>>?
+    fun getHistory() : LiveData<List<ContactEntity>>
 
     @Query("DELETE FROM ContactsInformation")
     fun clear()

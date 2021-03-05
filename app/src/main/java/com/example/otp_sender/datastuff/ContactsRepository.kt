@@ -1,9 +1,9 @@
 package com.example.otp_sender.datastuff
 
+import android.app.Application
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.room.RoomDatabase
-import com.example.otp_sender.datastuff.ContactsDatabase.Companion.getDatabaseInstance
+import androidx.lifecycle.MutableLiveData
 import com.hihi.twiliosms.Twilio
 import com.hihi.twiliosms.TwilioMessage
 import com.hihi.twiliosms.TwilioResponse
@@ -11,62 +11,67 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import java.util.concurrent.Callable
-import javax.security.auth.callback.Callback
 
-class ContactsRepository(private val database: RoomDatabase) {
+@Suppress("JoinDeclarationAndAssignment", "SpellCheckingInspection")
+class ContactsRepository(context : Application) {
 
-    companion object {
+    //        declaring the contact list livedata
+    private lateinit var contactsDatabase: ContactsDatabase
 
-        var contactsDatabase: ContactsDatabase? = null
+    private val c = context
+    //        returns live data of contactlist
+    var historylist: LiveData<List<ContactEntity>> get() = getHistoryFromDB(c)
+    //        setting a list of 1 contact in the list of live data
+    init {
+//        val contact = ContactEntity("firstname","lastname","phoneno","otp")
+//            val contact = ContactEntity("","","","")
+        historylist = getHistoryFromDB(context)
+    }
 
-        var contacts: LiveData<List<Contact>>? = null
+    private fun initializeDB(context: Context) : ContactsDatabase {
+        return ContactsDatabase.getDatabaseInstance(context)
+    }
 
-        private fun initializeDB(context: Context) : ContactsDatabase? {
-            return ContactsDatabase.getDatabaseInstance(context)
+    fun insertContact(
+        context: Context,
+        firstName: String,
+        lastName: String,
+        contactNo: String,
+        otp: String) {
+
+        contactsDatabase = initializeDB(context)
+
+        CoroutineScope(IO).launch {
+            val rowData = ContactEntity(firstName, lastName, contactNo, otp)
+            contactsDatabase.contactsDao().insertContact(rowData)
         }
 
-        fun insertContact(
-            context: Context,
-            firstName: String,
-            lastName: String,
-            contactNo: String,
-            otp: String) {
-
-            contactsDatabase = getDatabaseInstance(context)
-
-            CoroutineScope(IO).launch {
-                val rowData = Contact(firstName, lastName, contactNo, otp)
-                contactsDatabase!!.contactsDao().insertContact(rowData)
-            }
-
-        }
+        //fetch fresh data
+        historylist = getHistoryFromDB(context) as MutableLiveData<List<ContactEntity>>
+    }
 
 
 
-        fun getHistory(context: Context) : LiveData<List<Contact>>? {
-            contactsDatabase = initializeDB(context)
-            contacts = contactsDatabase!!.contactsDao().getHistory()
-            return contacts
-        }
+    private fun getHistoryFromDB(context: Context) : LiveData<List<ContactEntity>> {
+        return initializeDB(context).contactsDao().getHistory()
+    }
 
 //        fun getContacts(): LiveData<DataModel>? {
 //
 //        }
 
-        fun sendRequestToSmsApi(
-            ACCOUNT_SID: String,
-            AUTH_TOKEN: String,
-            body: String,
-            to: String,
-            from: String,
-            context: Context,
-            callback: Callback): Callable<TwilioResponse>? {
+    fun sendRequestToSmsApi(
+        ACCOUNT_SID: String,
+        AUTH_TOKEN: String,
+        body: String,
+        to: String,
+        from: String,
+        context: Context,
+    ): Callable<TwilioResponse>? {
 
-            val twilio: Twilio = Twilio.create(context, ACCOUNT_SID, AUTH_TOKEN)
-            var message: TwilioMessage = TwilioMessage.create(to, from, body, callback.toString())
+        val twilio: Twilio = Twilio.create(context, ACCOUNT_SID, AUTH_TOKEN)
+        val message: TwilioMessage = TwilioMessage.create(to, from, body, null)
 
-            return twilio.send(message)
-        }
-
+        return twilio.send(message)
     }
 }

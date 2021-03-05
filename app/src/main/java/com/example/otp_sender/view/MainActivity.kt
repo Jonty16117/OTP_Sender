@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.example.otp_sender.R
 import com.google.android.material.tabs.TabLayout
 
+@Suppress("SpellCheckingInspection")
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,16 +20,20 @@ class MainActivity : AppCompatActivity() {
 
         // Create the object of Toolbar, ViewPager and
         // TabLayout and use “findViewById()” method
-        var tab_toolbar = findViewById<Toolbar>(R.id.toolbar)
-        var tab_viewpager = findViewById<ViewPager>(R.id.tab_viewpager)
-        var tab_tablayout = findViewById<TabLayout>(R.id.tab_tablayout)
+        val tabToolbar = findViewById<Toolbar>(R.id.toolbar)
+        val tabViewpager = findViewById<ViewPager>(R.id.tab_viewpager)
+        val tablayout = findViewById<TabLayout>(R.id.tab_tablayout)
 
-        setSupportActionBar(tab_toolbar)
-        setupViewPager(tab_viewpager)
+        print("before setsupportactionbar")
+        setSupportActionBar(tabToolbar)
 
-        tab_tablayout.setupWithViewPager(tab_viewpager)
+        print("before setupviewpager")
+        setupViewPager(tabViewpager)
 
+        print("before tablayout")
+        tablayout.setupWithViewPager(tabViewpager)
 
+        print("at end")
     }
 
     private fun setupViewPager(viewpager: ViewPager) {
@@ -36,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         adapter.addFragment(HomeFragment(), "Home")
         adapter.addFragment(HistoryFragment(), "History")
 
-        viewpager.setAdapter(adapter)
+        viewpager.adapter = adapter
     }
 
     // This "ViewPagerAdapter" class overrides functions which are
