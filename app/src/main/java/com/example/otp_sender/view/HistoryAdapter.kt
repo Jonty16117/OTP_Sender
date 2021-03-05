@@ -48,6 +48,7 @@ class HistoryAdapter(private val context: Context, private val contactsForViewLi
         lastName.text = history!![position].lastName
         contactNum.text = history!![position].contactNo
         otp.text = "123456"
+        
         return currentview
     }
 }
