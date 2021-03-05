@@ -21,27 +21,19 @@ class ShowContactActivity : AppCompatActivity() {
         val ACCOUNT_SID = "ACbaf453bb08a10e6226758d98a1decada"
         val AUTH_TOKEN = "27f77074c08310fe9a78bffe8e514876"
         val SERVER_NO = "5596488509"
-        val intnt = Intent()
+        //val intnt = Intent()
 
-        findViewById<TextView>(R.id.inputfirstname).text = intnt
-            .getStringExtra("firstName")
-
-        findViewById<TextView>(R.id.inputlastname).text = intnt
-            .getStringExtra("lastName")
-
-        findViewById<TextView>(R.id.inputcontactno).text = intnt
-            .getStringExtra("contactNo")
+        //setting text values
+        findViewById<TextView>(R.id.inputfirstname).text = intent.getStringExtra("firstName")
+        findViewById<TextView>(R.id.inputlastname).text = intent.getStringExtra("lastName")
+        findViewById<TextView>(R.id.inputcontactno).text = intent.getStringExtra("contactNo")
 
         val button = findViewById<Button>(R.id.send)
-
         fun onclick(){
             Toast.makeText(this, "Sending OTP", Toast.LENGTH_LONG).show()
-
-
-
             //Toast.makeText(this, "Sent", Toast.LENGTH_LONG).show()
-        }
 
+        }
         button.setOnClickListener{onclick()}
 
 

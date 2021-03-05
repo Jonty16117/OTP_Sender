@@ -100,6 +100,10 @@ class HomeFragment : Fragment() {
                 val lastName = allContacts.getJSONObject(position.toString()).getString("lastName")
                 val contactNo = allContacts.getJSONObject(position.toString()).getString("contactNo")
 
+                println(firstName)
+                println(lastName)
+                println(contactNo)
+
                 putExtra("firstName", firstName)
                 putExtra("lastName", lastName)
                 putExtra("contactNo", contactNo)

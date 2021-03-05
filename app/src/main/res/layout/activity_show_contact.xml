@@ -12,14 +12,15 @@
         android:id="@+id/firstname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:text="First Name"
+        android:layout_marginTop="150sp"
         android:layout_gravity="center"   />
     <TextView
         android:id="@+id/inputfirstname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="First Name"
-        android:textSize="30sp"
+        android:textSize="35sp"
         android:layout_gravity="center"  />
     <TextView
         android:id="@+id/lastname"
@@ -51,7 +52,7 @@
         android:id="@+id/send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send OTP"
+        android:text=" Send OTP "
         android:layout_gravity="center" />
 </LinearLayout>
 

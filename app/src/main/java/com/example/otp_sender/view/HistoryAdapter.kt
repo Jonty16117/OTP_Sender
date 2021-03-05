@@ -37,7 +37,7 @@ class HistoryAdapter(private val context: Context, private val contactsForViewLi
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
         var currentview = convertView
         if (currentview == null) {
-            currentview = LayoutInflater.from(context).inflate(R.layout.row, parent, false)
+            currentview = LayoutInflater.from(context).inflate(R.layout.history_row, parent, false)
         }
         firstName = currentview!!.findViewById(R.id.firstName)
         lastName = currentview.findViewById(R.id.lastName)
@@ -47,8 +47,8 @@ class HistoryAdapter(private val context: Context, private val contactsForViewLi
         firstName.text = history!![position].firstName
         lastName.text = history!![position].lastName
         contactNum.text = history!![position].contactNo
-        otp.text = "123456"
-        
+        otp.text = history!![position].otp
+
         return currentview
     }
 }
