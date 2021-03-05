@@ -1,5 +1,6 @@
 package com.example.otp_sender.view
 
+import android.annotation.SuppressLint
 import com.example.otp_sender.R
 import android.content.Context
 import android.view.LayoutInflater
@@ -32,6 +33,7 @@ class HistoryAdapter(private val context: Context, private val contactsForViewLi
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
+    @SuppressLint("SetTextI18n")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
         var currentview = convertView
         if (currentview == null) {
@@ -41,10 +43,11 @@ class HistoryAdapter(private val context: Context, private val contactsForViewLi
         lastName = currentview.findViewById(R.id.lastName)
         contactNum = currentview.findViewById(R.id.contactNo)
         otp = currentview.findViewById(R.id.otp)
+
         firstName.text = history!![position].firstName
         lastName.text = history!![position].lastName
         contactNum.text = history!![position].contactNo
-        otp.text = history!![position].otp
+        otp.text = "123456"
         return currentview
     }
 }
