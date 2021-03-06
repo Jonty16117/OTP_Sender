@@ -39,4 +39,14 @@
         android:fontFamily="monospace"
         android:textStyle="bold"
         android:gravity="center"/>
+    <TextView
+        android:id="@+id/messageId"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="OTP"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        android:fontFamily="monospace"
+        android:textStyle="bold"
+        android:gravity="center"/>
 </LinearLayout>

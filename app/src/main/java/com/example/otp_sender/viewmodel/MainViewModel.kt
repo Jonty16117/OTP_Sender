@@ -1,32 +1,30 @@
 package com.example.otp_sender.viewmodel
 
-import android.app.Application
 import android.content.Context
-import androidx.lifecycle.AndroidViewModel
+import android.widget.Toast
 import androidx.lifecycle.LiveData
-import com.example.otp_sender.datastuff.ContactEntity
+import androidx.lifecycle.ViewModel
+import com.example.otp_sender.datastuff.ContactEntry
 import com.example.otp_sender.datastuff.ContactsRepository
 import kotlin.random.Random
 
-//@SuppressLint("StaticFieldLeak")
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel : ViewModel() {
+
+    var livehistorydata: LiveData<List<ContactEntry>>? = null
 
 
-    private val contactsRepository = ContactsRepository(application)
-
-//    val historylist: LiveData<List<ContactEntity>>
-//        get() = contactsRepository.historylist
-
-    //    lateinit var liveData: LiveData<List<ContactEntity>>
-    public fun getHistory() : LiveData<List<ContactEntity>> {
-        return contactsRepository.historylist
+//    gets live list of history from local database
+    fun getlivehistorylistfromvm(context: Context) : LiveData<List<ContactEntry>>? {
+        livehistorydata = ContactsRepository.getlivehistorylistfromrepo(context)
+        return livehistorydata
     }
 
-    public fun sendMessage(
+//    sends message through sms api and them updates the
+//    entry in local database
+    fun sendMessage(
             ACCOUNT_SID: String,
             AUTH_TOKEN: String,
             to: String,
-            from: String,
             context: Context,
             firstName: String,
             lastName: String): String {
@@ -40,15 +38,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 Random.nextInt(0, 9)).joinToString("")
         val body = "Hi. Your OTP is: $otp"
 
-        val responseFromSmsApi = contactsRepository.sendRequestToSmsApi(
-                ACCOUNT_SID, AUTH_TOKEN, body, to, from, context)
+        Toast.makeText(context, "Sending random OTP as:\n$otp", Toast.LENGTH_LONG).show()
 
-        //if message sent successfully then update the local database
+//      request sms from sms api
+//        val responseFromSmsApi = ContactsRepository.sendRequestToSmsApi(
+//                ACCOUNT_SID, AUTH_TOKEN, body, to, from, context)
+
+//        if message is sent successfully, then update the local database
         if (true){
-            contactsRepository.insertContact(context, firstName, lastName, to, otp)
+            ContactsRepository.insertContact(context, firstName, lastName, to, otp)
+            Toast.makeText(context, "Message Sent!", Toast.LENGTH_LONG).show()
             return "Message Sent"
         }
         else {
+            Toast.makeText(context, "Failed To Send Message!", Toast.LENGTH_LONG).show()
             return "Failed To Send Message"
         }
     }

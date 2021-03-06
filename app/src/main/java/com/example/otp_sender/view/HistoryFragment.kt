@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.otp_sender.R
-import com.example.otp_sender.datastuff.Contact
-import com.example.otp_sender.datastuff.ContactEntity
+import com.example.otp_sender.datastuff.ContactEntry
 import com.example.otp_sender.viewmodel.MainViewModel
+import com.example.otp_sender.viewmodel.MainViewModelFactory
 
 @Suppress("JoinDeclarationAndAssignment", "SpellCheckingInspection")
 class HistoryFragment : Fragment() {
@@ -22,97 +22,37 @@ class HistoryFragment : Fragment() {
             R.layout.fragment_history, container, false
         )
 
-//        print("before viewmodel is created")
-//        var vmObj = ViewModelProvider(
-//            this,ViewModelProvider.NewInstanceFactory())
-//            .get(MainViewModel::class.java)
+        val context = requireContext()
 
+        val viewModelFactory = MainViewModelFactory(context)
+        val vmObj = ViewModelProvider(requireActivity(),viewModelFactory)
+                .get(MainViewModel::class.java)
+
+        println("viewmodel created")
         val listView: ListView = currentView.findViewById(R.id.history_list)
 
-//        println("after viewmodel is created")
-//        //creating observer which update the contact list after a new entry is added
-//        val contactlistobserver = Observer<List<ContactEntity>> { newlist ->
-//
+        println("after viewmodel is created")
+        //creating observer which update the contact list after a new entry is added
+        val contactlistobserver = Observer<List<ContactEntry>> { newlist ->
+
 //            val contactList = mutableListOf<Contact>()
-//            if(newlist==null)
+//            if(newlist==null) {
 //                println("newlist is null")
-//            for (i in newlist) {
 //                contactList.add(
-//                    Contact(
-//                        i.firstName,
-//                        i.lastName,
-//                        i.contactNo,
-//                        i.otp
-//                    )
+//                        Contact(" ", "", "", " ")
 //                )
 //            }
-//            listView.adapter = ContactsAdapter(requireContext(), contactList)
-//        }
+//            for (i in newlist) {
+//                contactList.add(
+//                    Contact(i.firstName, i.lastName, i.contactNo, i.otp)
+//                )
+//            }
+            listView.adapter = HistoryAdapter(context, newlist)
+        }
 
-        //adding observer to viewmodel
-//        vmObj.getHistory().observe(viewLifecycleOwner, contactlistobserver)
-
-        val contactList = mutableListOf<Contact>()
-        contactList.add(Contact("Manpreet", "Sundi", "987576443", "123456"))
-//
-
-        listView.adapter = HistoryAdapter(requireContext(), contactList)
+//        adding observer to viewmodel
+        vmObj.getlivehistorylistfromvm(context)!!.observe(requireActivity(), contactlistobserver)
 
         return currentView
     }
 }
-
-
-
-//class HistoryFragment : Fragment() {
-//
-//    override fun onCreateView(
-//            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-//    ): View? {
-//
-////        val view = inflater.inflate(
-////            R.layout.fragment_history, container, false
-//        )
-//
-//        //lateinit var viewModelFactory: MainViewModelFactory
-//        //var viewModel: MainViewModel
-//
-//        var viewmodel = ViewModelProvider(this,
-//            ViewModelProvider.NewInstanceFactory())
-//            .get(MainViewModel::class.java)
-//
-//
-//        //showing history in history tab
-//        val listView: ListView = view.findViewById(R.id.history_list)
-//
-//        val context = context
-//        var livedata = viewmodel.getHistory(requireContext()).observe(viewLifecycleOwner, Observer { List<ContactEntity> })
-//
-//        var history = mutableListOf<Contact>()
-//
-//        if (livedata != null) {
-//            for(i in livedata) {
-//                var newContact = Contact(
-//                        i.firstName,
-//                        i.lastName,
-//                        i.contactNo,
-//                        i.otp)
-//                history.add(newContact)
-//            }
-//        }
-//
-//        listView.adapter = ContactsAdapter(context!!, history)
-//
-//        return view
-//    }
-//}
-
-//custom viewmodel factory
-//class MainViewModelFactory(): ViewModelProvider.Factory {
-//    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-//        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-//            return MainViewModel() as T
-//        }
-//        throw IllegalArgumentException("Unknown Viewmodel class")
-//    }
-//}

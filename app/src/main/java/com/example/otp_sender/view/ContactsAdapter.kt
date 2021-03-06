@@ -14,6 +14,7 @@ class ContactsAdapter(private val context: Context, private val contactForViewLi
     private lateinit var firstName: TextView
     private lateinit var lastName: TextView
     private lateinit var contactNum: TextView
+
     override fun getCount(): Int {
         return contactForViewList.size
     }
@@ -31,9 +32,11 @@ class ContactsAdapter(private val context: Context, private val contactForViewLi
         firstName = currentview!!.findViewById(R.id.firstName)
         lastName = currentview.findViewById(R.id.lastName)
         contactNum = currentview.findViewById(R.id.contactNo)
+
         firstName.text = contactForViewList[position].firstName
         lastName.text = contactForViewList[position].lastName
         contactNum.text = contactForViewList[position].contactNo
+
         return currentview
     }
 }

@@ -27,28 +27,11 @@ class HomeFragment : Fragment() {
         )
 
         //showing contacts in home tab
-
         val listView: ListView = currentView.findViewById(R.id.contact_list)
         val contactList = mutableListOf<Contact>()
 
-        //getting file from assets folder
-//        val currentAppPath = Paths.get("")
-//            .toAbsolutePath().toString()
-//        val filePath = Paths.get(currentAppPath,
-//            "assets", "contactsList.json").toString()
-
         val jsonString = requireContext().assets.open("contactsList.json")
                 .bufferedReader().use { it.readText() }
-
-        //extracting data string from file
-//        val br = BufferedReader(InputStreamReader(FileInputStream(filePath)))
-//        val sb = StringBuilder()
-//        var line = br.readLine()
-//        while (line != null) {
-//            sb.append(line)
-//            line = br.readLine()
-//        }
-//        val jsonString: String = sb.toString()
 
         //getting data from json string
         val obj = JSONObject(jsonString)
@@ -61,32 +44,7 @@ class HomeFragment : Fragment() {
                     allContacts.getJSONObject(i.toString()).getString("contactNo"),
                     "No OTP Sent")
             )
-
-            println(allContacts.getJSONObject(i.toString()).getString("firstName"))
-            println(allContacts.getJSONObject(i.toString()).getString("lastName"))
-            println(allContacts.getJSONObject(i.toString()).getString("contactNo"))
         }
-
-//        val arrayList = mutableListOf<Contact>()
-//        arrayList.add(Contact("Manpreet", "Sundi", "987576443", "123456"))
-//        arrayList.add(Contact("Punnu", "Binda", "8787576768", "123456"))
-//        arrayList.add(Contact("Bharti", "Lala", "65757657657", "123456"))
-//        arrayList.add(Contact("Manpreet", "Sundi", "987576443", "123456"))
-//        arrayList.add(Contact("Punnu", "Binda", "8787576768", "123456"))
-//        arrayList.add(Contact("Bharti", "Lala", "65757657657", "123456"))
-//        arrayList.add(Contact("Manpreet", "Sundi", "987576443", "123456"))
-//        arrayList.add(Contact("Punnu", "Binda", "8787576768", "123456"))
-//        arrayList.add(Contact("Bharti", "Lala", "65757657657", "123456"))
-//        arrayList.add(Contact("Manpreet", "Sundi", "987576443", "123456"))
-//        arrayList.add(Contact("Punnu", "Binda", "8787576768", "123456"))
-//        arrayList.add(Contact("Bharti", "Lala", "65757657657", "123456"))
-//        arrayList.add(Contact("Manpreet", "Sundi", "987576443", "123456"))
-//        arrayList.add(Contact("Punnu", "Binda", "8787576768", "123456"))
-//        arrayList.add(Contact("Bharti", "Lala", "65757657657", "123456"))
-//        arrayList.add(Contact("Manpreet", "Sundi", "987576443", "123456"))
-//        arrayList.add(Contact("Punnu", "Binda", "8787576768", "123456"))
-//        arrayList.add(Contact("Bharti", "Lala", "65757657657", "123456"))
-
 
         listView.adapter = ContactsAdapter(requireContext(), contactList)
 
@@ -99,10 +57,6 @@ class HomeFragment : Fragment() {
                 val firstName = allContacts.getJSONObject(position.toString()).getString("firstName")
                 val lastName = allContacts.getJSONObject(position.toString()).getString("lastName")
                 val contactNo = allContacts.getJSONObject(position.toString()).getString("contactNo")
-
-                println(firstName)
-                println(lastName)
-                println(contactNo)
 
                 putExtra("firstName", firstName)
                 putExtra("lastName", lastName)

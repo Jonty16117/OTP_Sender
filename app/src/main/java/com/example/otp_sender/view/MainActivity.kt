@@ -24,16 +24,9 @@ class MainActivity : AppCompatActivity() {
         val tabViewpager = findViewById<ViewPager>(R.id.tab_viewpager)
         val tablayout = findViewById<TabLayout>(R.id.tab_tablayout)
 
-        print("before setsupportactionbar")
         setSupportActionBar(tabToolbar)
-
-        print("before setupviewpager")
         setupViewPager(tabViewpager)
-
-        print("before tablayout")
         tablayout.setupWithViewPager(tabViewpager)
-
-        print("at end")
     }
 
     private fun setupViewPager(viewpager: ViewPager) {
@@ -45,15 +38,11 @@ class MainActivity : AppCompatActivity() {
         viewpager.adapter = adapter
     }
 
-    // This "ViewPagerAdapter" class overrides functions which are
-    // necessary to get information about which item is selected
-    // by user, what is title for selected item and so on.*/
     class ViewPagerAdapter : FragmentPagerAdapter {
 
-        private final var fragmentList1: ArrayList<Fragment> = ArrayList()
-        private final var fragmentTitleList1: ArrayList<String> = ArrayList()
+        private var fragmentList1: ArrayList<Fragment> = ArrayList()
+        private var fragmentTitleList1: ArrayList<String> = ArrayList()
 
-        // this is a secondary constructor of ViewPagerAdapter class.
         public constructor(supportFragmentManager: FragmentManager) : super(supportFragmentManager)
 
         // returns which item is selected from arraylist of fragments.
